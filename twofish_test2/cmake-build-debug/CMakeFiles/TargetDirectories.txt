@@ -1,0 +1,3 @@
+/home/costi/Documents/SI/Proiect/twofish_test2/cmake-build-debug/CMakeFiles/twofish_test2.dir
+/home/costi/Documents/SI/Proiect/twofish_test2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/costi/Documents/SI/Proiect/twofish_test2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
