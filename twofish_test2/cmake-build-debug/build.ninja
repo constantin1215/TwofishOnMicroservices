@@ -67,6 +67,18 @@ build CMakeFiles/twofish_test2.dir/galois.cpp.o: CXX_COMPILER__twofish_test2_uns
   OBJECT_DIR = CMakeFiles/twofish_test2.dir
   OBJECT_FILE_DIR = CMakeFiles/twofish_test2.dir
 
+build CMakeFiles/twofish_test2.dir/twofishTests.cpp.o: CXX_COMPILER__twofish_test2_unscanned_Debug /home/costi/Documents/SI/Proiect/twofish_test2/twofishTests.cpp || cmake_object_order_depends_target_twofish_test2
+  DEP_FILE = CMakeFiles/twofish_test2.dir/twofishTests.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/twofish_test2.dir
+  OBJECT_FILE_DIR = CMakeFiles/twofish_test2.dir
+
+build CMakeFiles/twofish_test2.dir/converting.cpp.o: CXX_COMPILER__twofish_test2_unscanned_Debug /home/costi/Documents/SI/Proiect/twofish_test2/converting.cpp || cmake_object_order_depends_target_twofish_test2
+  DEP_FILE = CMakeFiles/twofish_test2.dir/converting.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/twofish_test2.dir
+  OBJECT_FILE_DIR = CMakeFiles/twofish_test2.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target twofish_test2
@@ -75,7 +87,7 @@ build CMakeFiles/twofish_test2.dir/galois.cpp.o: CXX_COMPILER__twofish_test2_uns
 #############################################
 # Link the executable twofish_test2
 
-build twofish_test2: CXX_EXECUTABLE_LINKER__twofish_test2_Debug CMakeFiles/twofish_test2.dir/main.cpp.o CMakeFiles/twofish_test2.dir/twofish.cpp.o CMakeFiles/twofish_test2.dir/galois.cpp.o
+build twofish_test2: CXX_EXECUTABLE_LINKER__twofish_test2_Debug CMakeFiles/twofish_test2.dir/main.cpp.o CMakeFiles/twofish_test2.dir/twofish.cpp.o CMakeFiles/twofish_test2.dir/galois.cpp.o CMakeFiles/twofish_test2.dir/twofishTests.cpp.o CMakeFiles/twofish_test2.dir/converting.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/twofish_test2.dir
   POST_BUILD = :

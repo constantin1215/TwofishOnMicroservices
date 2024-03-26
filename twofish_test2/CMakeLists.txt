@@ -9,4 +9,8 @@ add_executable(twofish_test2 main.cpp
         keys.h
         galois.cpp
         galois.h
+        twofishTests.cpp
+        twofishTests.h
+        converting.cpp
+        converting.h
 )
