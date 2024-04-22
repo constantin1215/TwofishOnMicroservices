@@ -2,6 +2,11 @@
 #include "keys.h"
 #include "twofish.h"
 #include "twofishTests.h"
+#include <fstream>
+#include <sstream>
+
+ifstream fin("lorem.txt");
+ofstream fout("result.txt");
 
 int main() {
     //basicTest128();
@@ -10,10 +15,23 @@ int main() {
 
     //runFullEncryptions128(); // vezi doc
 
-    const uint8_t BLOCK_SIZE = 16;
-    string plaintext = "ana are mere si pere";
-    uint8_t nrOfBytes = plaintext.length();
+    // string plaintext = "ana are mere si pere";
+    string plaintext;
+    string buffer;
 
+    if (fin.is_open()) {
+        while (getline(fin, buffer)) {
+            plaintext += buffer + '\n';
+        }
+        fin.close();
+    }
+    else {
+        printf("Error opening file.");
+        return -1;
+    }
+
+    uint32_t nrOfBytes = plaintext.length();
+    const uint8_t BLOCK_SIZE = 16;
     printf("Plaintext: %s\n", plaintext.c_str());
     printf("The string has: %d bytes\n", nrOfBytes);
     uint8_t nrOfBlocks = nrOfBytes % BLOCK_SIZE == 0 ? nrOfBytes / BLOCK_SIZE : nrOfBytes / BLOCK_SIZE + 1;
@@ -50,6 +68,7 @@ int main() {
 
     uint8_t decypheredBlocks[10000][16];
 
+    string finalResult;
     for(int i = 0; i < nrOfBlocks; i++) {
         printf("BLOCK %d:\n", i + 1);
         printf("Bytes:\n\n");
@@ -62,10 +81,16 @@ int main() {
         printf("Decyphered: \n\n");
         displayBytes(decypheredBlocks[i], BLOCK_SIZE);
         printf("\n");
-        printf("%s", bytesBlockToString(decypheredBlocks[i], BLOCK_SIZE).c_str());
+        string decipheredString = bytesBlockToString(decypheredBlocks[i], BLOCK_SIZE);
+        printf("%s", decipheredString.c_str());
+        finalResult += decipheredString;
         printf("\n");;
 
     }
+
+    printf("Final result:\n%s", finalResult.c_str());
+    finalResult.resize(finalResult.find('\0'));
+    fout << finalResult;
 
     return 0;
 }
