@@ -30,6 +30,7 @@ int main() {
         return -1;
     }
 
+    plaintext = "hi";
     uint32_t nrOfBytes = plaintext.length();
     const uint8_t BLOCK_SIZE = 16;
     printf("Plaintext: %s\n", plaintext.c_str());

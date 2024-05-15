@@ -1,0 +1,16 @@
+services:
+    service-registry:
+      container_name: "service-registry"
+      image: service-registry:latest
+      ports:
+        - 8090:8090
+    peer-1:
+      container_name: "peer-1"
+      image: peer-service:latest
+      depends_on:
+        - service-registry
+    peer-2:
+      container_name: "peer-2"
+      image: peer-service:latest
+      depends_on:
+        - service-registry

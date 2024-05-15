@@ -59,20 +59,34 @@ int main(int argc, char *argv[])
 
             QJsonObject json = jsonOpt.value();
 
-            if (json["host"].isNull() || json["port"].isNull() || json["PK_N"].isNull() || json["PK_e"].isNull())
+            if (json["host"].isNull() ||
+                json["port_http"].isNull() ||
+                json["port_ws_s"].isNull() ||
+                json["id"].isNull() ||
+                json["PK_N"].isNull() ||
+                json["PK_e"].isNull() ||
+                json["IV"].isNull()) {
+                qDebug() << "Missing field";
                 return QHttpServerResponse(QHttpServerResponder::StatusCode::BadRequest);
+            }
 
             for(auto service : services) {
-                if (service->host == json["host"].toString() && service->port == json["port"].toInt()) {
+                if (service->host == json["host_http"].toString() &&
+                    service->port_http == json["port_http"].toInt() &&
+                    service->port_ws_s == json["port_ws_s"].toInt() &&
+                    service->id == json["id"].toString()) {
                     return QHttpServerResponse(QHttpServerResponder::StatusCode::AlreadyReported);
                 }
             }
 
             Service *service = new Service(
                 json["host"].toString(),
-                json["port"].toInt(),
+                json["port_http"].toInt(),
+                json["port_ws_s"].toInt(),
+                json["id"].toString(),
                 json["PK_N"].toString(),
-                json["PK_e"].toString()
+                json["PK_e"].toString(),
+                json["IV"].toString()
                 );
 
             services << service;
@@ -84,7 +98,7 @@ int main(int argc, char *argv[])
 
     const auto port = httpServer.listen(QHostAddress::Any, 8090);
     if (!port) {
-        qWarning() << QCoreApplication::translate("QHttpServerExample",
+        qWarning() << QCoreApplication::translate("Service Registry",
                                                   "Server failed to listen on a port.");
         return -1;
     }
@@ -102,7 +116,7 @@ int main(int argc, char *argv[])
             qDebug() << "Removing service "<< url;
 
             services.removeIf([host, port](Service* service) {
-                return service->host == host && service->port == port;
+                return service->host == host && service->port_http == port;
             });
             return;
         }
@@ -118,7 +132,7 @@ int main(int argc, char *argv[])
     QObject::connect(&timer, &QTimer::timeout, [&request, &manager]() {
         qDebug() << "Checking services.";
         for(auto service : services) {
-            QUrl url = QUrl(QString("http://" + service->host +":" + QString::number(service->port) +"/"));
+            QUrl url = QUrl(QString("http://" + service->host +":" + QString::number(service->port_http) +"/"));
             qDebug() << "Checking " << url;
             request.setUrl(url);
             manager->get(request);
